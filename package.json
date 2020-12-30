@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/nathanielfoss11/mvp#readme",
   "dependencies": {
+    "a": "^2.1.2",
     "axios": "^0.21.1",
     "bootstrap": "^4.5.3",
     "express": "^4.17.1",
