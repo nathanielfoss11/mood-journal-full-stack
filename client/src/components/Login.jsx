@@ -7,6 +7,7 @@ class Login extends React.Component {
     this.state = {
       username: '',
       password: '',
+      confirmPassword: '',
       signup: false,
       name: '',
       email: '',
@@ -14,6 +15,7 @@ class Login extends React.Component {
       heightFeet: 0,
       heightInches: 0,
       medication: '',
+      passwordMatch: true,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -38,12 +40,14 @@ class Login extends React.Component {
 
 
   render() {
-    let name, weight, height, medication, email, signup, login; 
+    let name, weight, height, medication, email, signup, login, action, confirmPassword;
     if(this.state.signup === false) {
     signup = <p onClick={()=>{this.setState({signup: true})}}>Sign Up Here</p>
+    action = 'Log In'
     }
     if(this.state.signup === true) {
       login = <p onClick={()=>{this.setState({signup: false})}}>Log In Here</p>
+      action = 'Sign Up'
       name = 
         <Col>
         <Form.Group name='name'>
@@ -87,10 +91,20 @@ class Login extends React.Component {
       <Col>
       <Form.Group name='medication'>
         <Form.Label>Do you take any medication?</Form.Label>
-        <Form.Control type='text' name='medication' value={this.state.medication} onChange={this.handleChange}/>
+        <Form.Control as='select' name='medication' onChange={this.handleChange}>
+          <option value='0'>Choose...</option>
+          <option value='yes'>Yes</option>
+          <option value='sometimes'>Sometimes</option>
+          <option value='no'>No</option>
+        </Form.Control>
       </Form.Group>
       </Col>
 
+      confirmPassword = 
+      <Form.Group name='password'>
+        <Form.Label>Confirm Password*</Form.Label>
+        <Form.Control type='password' name='password' value={this.state.confirmPassword} onChange={this.handleChange}/>
+      </Form.Group>
     }
 
     return ( 
@@ -108,8 +122,11 @@ class Login extends React.Component {
                 <Form.Label>Password*</Form.Label>
                 <Form.Control type='password' name='password' value={this.state.password} onChange={this.handleChange}/>
               </Form.Group>
-              {signup}
               </Col>
+              <Col>
+              {confirmPassword}
+              </Col>
+              {signup}
               {name}
               {email}
               {weight}
@@ -118,7 +135,7 @@ class Login extends React.Component {
               <Col>
               {login}
               <Button variant="primary" type="submit">
-                Submit
+                {action}
               </Button>
               </Col>
             </Form>
