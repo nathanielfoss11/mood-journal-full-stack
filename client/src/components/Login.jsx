@@ -42,45 +42,62 @@ class Login extends React.Component {
   render() {
     let name, weight, height, medication, email, signup, login, action, confirmPassword;
     if(this.state.signup === false) {
-    signup = <p onClick={()=>{this.setState({signup: true})}}>Sign Up Here</p>
-    action = 'Log In'
+      signup = <p onClick={()=>{this.setState({signup: true})}}><b>Sign Up Here</b></p>
+      action = 'Log In'
     }
     if(this.state.signup === true) {
-      login = <p onClick={()=>{this.setState({signup: false})}}>Log In Here</p>
+      login = <p onClick={()=>{this.setState({signup: false})}}><b>Log In Here</b></p>
       action = 'Sign Up'
       name = 
         <Col>
-        <Form.Group name='name'>
-          <Form.Label>Name</Form.Label>
-          <Form.Control type='text' name='name' value={this.state.name} onChange={this.handleChange}/>
-        </Form.Group>
+          <Form.Row>
+            <Col>
+              <Form.Group name='name'>
+                <Form.Label>Name</Form.Label>
+                <Form.Control type='text' name='name' value={this.state.name} onChange={this.handleChange}/>
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group name='email'>
+                <Form.Label>Email</Form.Label>
+                <Form.Control type='email' name='email' value={this.state.email} onChange={this.handleChange}/>
+              </Form.Group>
+            </Col>
+          </Form.Row>
         </Col>
-      email = 
-        <Col>
-        <Form.Group name='email'>
-          <Form.Label>Email</Form.Label>
-          <Form.Control type='email' name='email' value={this.state.email} onChange={this.handleChange}/>
-        </Form.Group>
-        </Col>
-      weight = 
+      // email = 
+      //   <Col>
+      //   <Form.Group name='email'>
+      //     <Form.Label>Email</Form.Label>
+      //     <Form.Control type='email' name='email' value={this.state.email} onChange={this.handleChange}/>
+      //   </Form.Group>
+      //   </Col>
+      // weight = 
+      // <Col>
+      // <Form.Group name='weight'>
+      //   <Form.Label>Weight</Form.Label>
+      //   <Form.Control type='number' name='weight' value={this.state.weight} onChange={this.handleChange}/>
+      // </Form.Group>
+      // </Col>
+
+      height = 
+      <Col>
+      <Form.Row>
       <Col>
       <Form.Group name='weight'>
         <Form.Label>Weight</Form.Label>
         <Form.Control type='number' name='weight' value={this.state.weight} onChange={this.handleChange}/>
       </Form.Group>
       </Col>
-
-      height = 
-      <Col>
-      <Form.Label> Height</Form.Label>
-      <Form.Row>
         <Col>
           <Form.Group name='height'>
+          <Form.Label> Height</Form.Label>
           <Form.Control type='number' name='heightFeet' value={this.state.heightFeet} onChange={this.handleChange} /> Feet
           </Form.Group>
         </Col>
         <Col>
           <Form.Group>
+          <Form.Label> .</Form.Label>
           <Form.Control type='number' name='heightInches' value={this.state.heightInches} onChange={this.handleChange} /> Inches
           </Form.Group>
         </Col>
@@ -110,6 +127,10 @@ class Login extends React.Component {
     return ( 
         <div>
           <Container>
+            <h2 id='loginWelcome'>Welcome to Your Mood Tracker</h2>
+            <br />
+            <h3 id='actionTitle'>{action}</h3>
+            <br />
             <Form>
               <Col>
               <Form.Group name='username'>
@@ -126,18 +147,22 @@ class Login extends React.Component {
               <Col>
               {confirmPassword}
               </Col>
-              {signup}
               {name}
               {email}
               {weight}
               {height}
               {medication}
               <Col>
-              {login}
+                {signup}
+                {login}
+              </Col>
+              <Col>
               <Button variant="primary" type="submit">
                 {action}
               </Button>
               </Col>
+              <br />
+              <br />
             </Form>
           </Container>
         </div>

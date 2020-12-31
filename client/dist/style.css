@@ -1,0 +1,17 @@
+* {
+  background-color: #CBE1EF;
+}
+
+h1 {
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#loginWelcome {
+  text-align: center;
+  font-weight: bold;
+}
+
+#actionTitle {
+  text-align: left;
+  font-weight: bolder;
+}
