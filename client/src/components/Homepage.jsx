@@ -1,23 +1,24 @@
 import React from 'react';
-import { Container, Form, Button, Col } from 'react-bootstrap'
+import { Container, Form, Button, Col, Row } from 'react-bootstrap'
 import axios from 'axios';
 
 class Homepage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      userInfo: props.user,
       username: props.user.username,
       quoteObj: {},
       quote: '',
       author: '',
     }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount() {
-    axios.get('/quotes')
-    .then((result) => this.setState({quoteObj: result}))
+    let quoteId = Math.floor(Math.random() * 1664)
+    axios.get(`/quotes/${quoteId}`)
+    // .then((result) => console.log(result.data[0]))
+    .then((result) => this.setState({quoteObj: result.data[0]}))
     .catch((err) => console.log(err))
   }
 
@@ -29,9 +30,12 @@ class Homepage extends React.Component {
           <Row>
             <h2>Hello, {this.state.username}</h2>
           </Row>
+          <br />
           <Row>
-            <h3>"{this.state.quoteObj['quote']}" -{this.state.quoteObj['author']}</h3>
+            <h3 id='quote'>"{this.state.quoteObj['quote']}" -{this.state.quoteObj['author']}</h3>
           </Row>
+          <br />
+          <br />
           <Row>
             <Col id='reminders'>
               <h4>Today's Reminders</h4>
@@ -43,6 +47,9 @@ class Homepage extends React.Component {
           </Row>
           <Row>
             <Col>
+            <br />
+            <br />
+            <h4>Journal Entries</h4>
               <Row>
                 <Col>
                 {/* mood */}

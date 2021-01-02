@@ -1,6 +1,5 @@
 module.exports = {
   entry: __dirname + '/client/src/index.jsx', // The entry point for the Application (Where ReactDOM.render is called)
-  watch: true,
   mode: 'development',
   module: {
     rules: [
@@ -20,7 +19,20 @@ module.exports = {
           'style-loader',
           'css-loader'
         ]
-      }
+      }, 
+      {
+        test: /\.(jpg|png|svg)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[hash].[ext]',
+        },
+    },
+    {
+      test: /\.(jpg|png|svg)$/,
+      loader: 'url-loader',
+      options: {
+      },
+  },
     ]
   },
    output: { // IMPORTANT: This is where we set the bundle to be built into a folder

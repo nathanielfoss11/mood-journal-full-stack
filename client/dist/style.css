@@ -15,3 +15,17 @@ h1 {
   text-align: left;
   font-weight: bolder;
 }
+
+#quote {
+  font-size: 13px;
+  text-align: center;
+}
+
+#moodRow {
+  text-align: center;
+  align-items: center;
+  align-content: center;
+}
+
+/* 
+ */

@@ -28,6 +28,12 @@ class JournalRecord extends React.Component {
   }
 
   render() {
+    let viewMore;
+    if(this.state.viewEntry === true) {
+      <Row>
+        
+      </Row>
+    }
     return(
       <Row>
         <Col>

@@ -2,21 +2,49 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 const queries = require('./queries.js')
+const bodyParser = require('body-parser')
+const jsonParser = bodyParser.json()
+app.use(express.static('../client/dist'));
+app.use(bodyParser.json()); 
 
-app.use(express.static('../client/dist')); // Host your dist folder up to the server
-app.use(express.json()); // Alternative to BodyParser
-
-// If you had to handle requests on the server side, this is where that would occur
 app.get('/users/:username', (req, res) => {
-		res.status(200).send('The server is taking requests to the products/:username endpoint');
+	queries.getUser(req.params.username, (err, result) => {
+		if(err) {
+			console.log(err)
+		} else {
+			res.status(200).send(result.rows);
+		}
+	})
 });
 
 app.post('/users', (req, res) => {
-	let userObj = req.body.data
+	let userObj = req.body
+	userObj.weight = parseInt(userObj.weight)
+	userObj.heightFeet = parseInt(userObj.heightFeet)
+	userObj.heightInches = parseInt(userObj.heightInches)
 	console.log(userObj)
+	queries.createUser(userObj, (err, result) => {
+		if(err) {
+			console.log(err)
+		} else {
+			res.status(200).send(userObj)
+		}
+	})
 })
 
-// Listening for requests on the PORT
+app.get('/quotes/:id', (req, res) => {
+	console.log(req.data)
+	let id = parseInt(req.params.id) + 1664
+	queries.getQuote(id, (err, result) => {
+		if(err) {
+			console.log(err)
+		} else {
+			res.status(200).send(result.rows);
+		}
+	})
+});
+
+
 app.listen(PORT, () => {
     console.log('Serving up now at '+ JSON.stringify(PORT))
 });

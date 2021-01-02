@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Container } from 'react-bootstrap'
 import Login from './components/Login.jsx'
+import JournalEntry from './components/JournalEntry.jsx'
 
 class App extends React.Component {
   constructor() {
@@ -27,6 +28,7 @@ class App extends React.Component {
             <br />
             <div id='homepage'></div>
             <div id='login'></div>
+            <JournalEntry />
           </Container>
         </div>
     );

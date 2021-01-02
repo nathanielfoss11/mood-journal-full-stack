@@ -1,5 +1,8 @@
 import React from 'react';
-import { Container, Form, Button, Col } from 'react-bootstrap'
+import ReactDOM from 'react-dom';
+import axios from 'axios';
+import { Container, Form, Button, Col } from 'react-bootstrap';
+import Homepage from './Homepage.jsx';
 
 class Login extends React.Component {
   constructor() {
@@ -28,9 +31,39 @@ class Login extends React.Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
     const username = this.state.username;
     const password = this.state.password;
-    event.preventDefault();
+    let obj = {
+      username: this.state.username,
+      password: this.state.password,
+      name: this.state.name,
+      email: this.state.email,
+      weight: this.state.weight,
+      heightFeet: this.state.heightFeet,
+      heightInches: this.state.heightInches,
+      medication: this.state.medication,
+    }
+    if(this.state.signup === false) {
+      axios.get(`/users/${username}`)
+      .then((result) => {
+        console.log(result)
+        if(result.data[0]['p'] === obj.password) {
+          ReactDOM.unmountComponentAtNode(document.getElementById('login'))
+          ReactDOM.render(<Homepage user={obj} />, document.getElementById('homepage'))
+        } else {
+          this.setState({passwordMatch: false})
+        }
+      })
+    } else {
+      console.log(obj)
+      axios.post('/users', obj)
+      .then((result) => {
+        ReactDOM.unmountComponentAtNode(document.getElementById('login'))
+        ReactDOM.render(<Homepage user={obj} />, document.getElementById('homepage'))
+      })
+      .catch((err) => console.log(err))
+    }
     //route for looking up password
     //check to see if password matches
       //if it does not then an error pops up
@@ -40,7 +73,7 @@ class Login extends React.Component {
 
 
   render() {
-    let name, weight, height, medication, email, signup, login, action, confirmPassword;
+    let name, weight, height, medication, email, signup, login, action, confirmPassword, wrongPassword;
     if(this.state.signup === false) {
       signup = <p onClick={()=>{this.setState({signup: true})}}><b>Sign Up Here</b></p>
       action = 'Log In'
@@ -120,8 +153,11 @@ class Login extends React.Component {
       confirmPassword = 
       <Form.Group name='password'>
         <Form.Label>Confirm Password*</Form.Label>
-        <Form.Control type='password' name='password' value={this.state.confirmPassword} onChange={this.handleChange}/>
+        <Form.Control type='password' name='confirmPassword' value={this.state.confirmPassword} onChange={this.handleChange}/>
       </Form.Group>
+    }
+    if(this.state.passwordMatch === false) {
+      wrongPassword = <p>You entered the wrong password!</p>
     }
 
     return ( 
@@ -142,6 +178,7 @@ class Login extends React.Component {
               <Form.Group name='password'>
                 <Form.Label>Password*</Form.Label>
                 <Form.Control type='password' name='password' value={this.state.password} onChange={this.handleChange}/>
+                {wrongPassword}
               </Form.Group>
               </Col>
               <Col>
@@ -157,7 +194,7 @@ class Login extends React.Component {
                 {login}
               </Col>
               <Col>
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit" onClick={this.handleSubmit}>
                 {action}
               </Button>
               </Col>
