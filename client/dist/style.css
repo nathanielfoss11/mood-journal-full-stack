@@ -1,4 +1,8 @@
-* {
+html {
+  background-color: #CBE1EF;
+}
+
+#App {
   background-color: #CBE1EF;
 }
 
@@ -21,11 +25,73 @@ h1 {
   text-align: center;
 }
 
+/* Journal Records */
+#journalTitle {
+  border-bottom: black 4px solid;
+}
+
+#journalColumnNames {
+  padding-top: 15px;
+}
+
+#dateRecord {
+  vertical-align: middle;
+  margin-top: 13px;
+}
+
+#viewEntry {
+  margin-top: 5px
+}
+
+#journalRecord {
+  border-bottom: 1px solid black;
+}
+
+#moodOnRecord {
+  margin-top: 3px;
+}
+
+/* Form */
 #moodRow {
   text-align: center;
   align-items: center;
   align-content: center;
 }
 
-/* 
- */
+.moodFace {
+  opacity: 0.2;
+}
+
+.moodFaceSelected {
+  opacity: 1;
+}
+
+#customRating {
+  display: none;
+}
+
+Modal {
+  background-color: white;
+}
+
+#journalEntry {
+  background-color: white;
+  margin: 10px
+}
+
+#journalEntrySubmit {
+  display: inline;
+  align-content: right;
+  padding-left: 15px;
+}
+
+/* .modal-content {
+  width: 897px;
+  height: 802px;
+} */
+
+.modal-90w{
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}

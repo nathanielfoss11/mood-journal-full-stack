@@ -2,32 +2,27 @@ import React from 'react';
 import { Container, Form, Button, Col, Row, Modal} from 'react-bootstrap';
 import axios from 'axios';
 
-class JournalEntry extends React.Component {
+class ViewJournalEntry extends React.Component {
   constructor(props) {
     super(props)
     console.log(props)
     this.state = {
-      userId: props.user.user_id,
       show: true,
-      username: '',
+      userId: props.user.user_id,
+      username: props.user.username,
       hasMedication: '',
-      mood: 0,
-      hoursOfSleep: 0.0,
-      tookMedication: null,
-      activity1: null,
-      activity2: null,
-      activity2: null,
-      symptom1: null,
-      symptom2: null,
-      symptom3: null,
-      notes:  null,
-      date: '',
+      mood: props.user.mood.toString(),
+      hoursOfSleep: props.user.hoursOfSleep,
+      tookMedication: props.user.tookMedication,
+      activity1: props.user.activity1,
+      activity2: props.user.activity2,
+      activity2: props.user.activity2,
+      symptom1: props.user.symptom1,
+      symptom2: props.user.symptom2,
+      symptom3: props.user.symptom3,
+      notes:  props.user.notes,
+      date: props.user.entryDate.slice(0, 10),
       moodClicked: false,
-      moodOneActive: false,
-      moodTwoActive: false,
-      moodThreeActive: false,
-      moodFourActive: false,
-      moodFiveActive: false,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -307,7 +302,7 @@ class JournalEntry extends React.Component {
             </Row>
             <Row>
               <Col>
-                <Button id='journalEntrySubmit' type='submit' onClick={this.handleSubmit}>Submit</Button>
+                <Button id='journalEntrySubmit' type='submit' onClick={this.handleSubmit}>Submit Edits</Button>
               </Col>
             </Row>
           </Col>
@@ -317,4 +312,4 @@ class JournalEntry extends React.Component {
   }
 }
 
-export default JournalEntry
+export default ViewJournalEntry

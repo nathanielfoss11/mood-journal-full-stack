@@ -50,7 +50,7 @@ class Login extends React.Component {
         console.log(result)
         if(result.data[0]['p'] === obj.password) {
           ReactDOM.unmountComponentAtNode(document.getElementById('login'))
-          ReactDOM.render(<Homepage user={obj} />, document.getElementById('homepage'))
+          ReactDOM.render(<Homepage user={result.data[0]} />, document.getElementById('homepage'))
         } else {
           this.setState({passwordMatch: false})
         }

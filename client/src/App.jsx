@@ -13,12 +13,14 @@ class App extends React.Component {
     }
   }
 
+
   componentDidMount() {
     if(this.state.isLoggedIn === false) {
       ReactDOM.render(<Login />, document.getElementById('login'))
     }
   }
-    
+  
+  
   render() {
     return ( 
         <div>
@@ -28,7 +30,6 @@ class App extends React.Component {
             <br />
             <div id='homepage'></div>
             <div id='login'></div>
-            <JournalEntry />
           </Container>
         </div>
     );
