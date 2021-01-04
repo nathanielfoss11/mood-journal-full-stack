@@ -8,6 +8,7 @@ class JournalRecord extends React.Component {
     super(props)
     console.log(props.entry)
     this.state = {
+      entryId: props.entry.entry_id,
       userId: props.entry.user_id,
       username: props.entry.username,
       hasMedication: props.entry.hasMedication,

@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 const queries = require('./queries.js')
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
@@ -68,6 +68,22 @@ app.post('/users/:id/journal', (req, res) => {
 	})
 })
 
+app.put('/users/:id/journal', (req, res) => {
+	let userObj = req.body
+	let id = req.params.id
+	userObj.hours_of_sleep = parseInt(userObj.hours_of_sleep)
+	userObj.mood = parseInt(userObj.mood)
+	userObj.entryId = parseInt(userObj.entryId)
+	console.log(userObj)
+	queries.editJournalEntry(id, userObj, (err, result) => {
+		if(err) {
+			console.log(err)
+		} else {
+			res.status(200).send(userObj)
+		}
+	})
+})
+
 app.get('/users/:id/journal', (req, res) => {
 	const id = req.params.id;
 	queries.getJournalEntries(id, (err, result) => {
@@ -75,6 +91,33 @@ app.get('/users/:id/journal', (req, res) => {
 			console.log(err)
 		} else {
 			res.status(200).send(result.rows)
+		}
+	})
+}) 
+
+app.delete('/journal/:id', (req, res) => {
+	const id = req.params.id;
+  queries.deleteJournalEntry(id, (err, result) => {
+		if(err) {
+			console.log(err)
+		} else {
+			res.status(200).send(result.rows)
+		}
+	})
+})
+
+app.put('/users/:id', (req, res) => {
+	let userObj = req.body
+	let id = req.params.id
+	userObj.weight = parseInt(userObj.weight)
+	userObj.heightFeet = parseInt(userObj.heightFeet)
+	userObj.heightInches = parseInt(userObj.heightInches)
+	console.log(userObj)
+	queries.editUserProfile(id, userObj, (err, result) => {
+		if(err) {
+			console.log(err)
+		} else {
+			res.status(200).send(userObj)
 		}
 	})
 })

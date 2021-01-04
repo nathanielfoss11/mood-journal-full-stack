@@ -8,7 +8,7 @@ class JournalEntry extends React.Component {
     console.log(props)
     this.state = {
       userId: props.user.user_id,
-      show: true,
+      show: props.show,
       username: '',
       hasMedication: '',
       mood: 0,
@@ -33,20 +33,23 @@ class JournalEntry extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleClose = this.handleClose.bind(this)
     this.handleMoodClick = this.handleMoodClick.bind(this)
+    this.unmountModal = this.unmountModal.bind(this)
   }
 
   handleClose(event) {
     event.preventDefault();
     this.setState({show: false})
+    this.unmountModal()
+  }
+
+  unmountModal() {
+    ReactDOM.unmountComponentAtNode(document.getElementById('modal'))
   }
 
   handleChange(event) {
-    console.log(event)
     const target = event.target;
     const value = target.value;
-    console.log(value)
     const name = target.name;
-    console.log(name)
     this.setState({[name]: value});
   }
 

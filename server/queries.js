@@ -10,9 +10,17 @@ const db = new Client({
 
 db.connect();
 
+const getUser = (name, cb) => {
+  db.query(`SELECT * FROM users WHERE username = ($1)`, [name], (err, results) => {
+    if(err) {
+      cb(err, null)
+    } else {
+      cb(null, results)
+    }
+  })
+}
+
 const createUser = (obj, cb) => {
-  console.log(obj)
-  console.log(obj.username)
   let u = obj.username;
   let n = obj.name;
   let p = obj.password;
@@ -31,38 +39,11 @@ const createUser = (obj, cb) => {
   })
 }
 
-const getUser = (name, cb) => {
-  console.log(name)
-  db.query(`SELECT * FROM users WHERE username = ($1)`, [name], (err, results) => {
+const editUserProfile = (id, obj, cb) => {
+  db.query(`UPDATE users SET username = ($1), name = ($2), email = ($3), weight = ($4), height_feet = ($5), height_inches = ($6), medication = ($7) WHERE user_id = ($8)`, [obj.username, obj.name, obj.email, obj.weight, obj.heightFeet, obj.heightInches, obj.medication, id], (err, results) => {
     if(err) {
       cb(err, null)
     } else {
-      cb(null, results)
-    }
-  })
-}
-
-const getQuote = (id, cb) => {
-  console.log(id)
-  db.query('SELECT * FROM quotes WHERE quote_id = ($1)', [id], (err, results) => {
-    if(err) {
-      cb(err, null)
-    } else {
-      console.log(results)
-      cb(null, results)
-    }
-  })
-}
-
-const postJournalEntry = (id, obj, cb) => {
-  console.log(obj)
-  console.log(id)
-  db.query('INSERT INTO journal_entries(user_id, entry_date, mood, hours_of_sleep, activity1, activity2, activity3, symptom1, symptom2, symptom3, took_medication, notes) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)', [id, obj.entry_date, obj.mood, obj.hours_of_sleep, obj.activity1, obj.activity2, obj.activity3, obj.symptom1, obj.symptom2, obj.symptom3, obj.took_medication, obj.notes], (err, results) => {
-    if(err) {
-      console.log(err)
-      cb(err, null)
-    } else {
-      console.log('success')
       cb(null, obj)
     }
   })
@@ -80,11 +61,61 @@ const getJournalEntries = (id, cb) => {
   })
 }
 
+const postJournalEntry = (id, obj, cb) => {
+  db.query('INSERT INTO journal_entries(user_id, entry_date, mood, hours_of_sleep, activity1, activity2, activity3, symptom1, symptom2, symptom3, took_medication, notes) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)', [id, obj.entry_date, obj.mood, obj.hours_of_sleep, obj.activity1, obj.activity2, obj.activity3, obj.symptom1, obj.symptom2, obj.symptom3, obj.took_medication, obj.notes], (err, results) => {
+    if(err) {
+      console.log(err)
+      cb(err, null)
+    } else {
+      console.log('success')
+      cb(null, obj)
+    }
+  })
+}
+
+const editJournalEntry = (id, obj, cb) => {
+  db.query('UPDATE journal_entries SET entry_date = ($2), mood = ($3), hours_of_sleep = ($4), activity1 = ($5), activity2 = ($6), activity3 = ($7), symptom1 = ($8), symptom2 = ($9), symptom3 = ($10), took_medication = ($11), notes = ($12) WHERE entry_id = ($1)', [obj.entryId, obj.entryDate, obj.mood, obj.hoursOfSleep, obj.activity1, obj.activity2, obj.activity3, obj.symptom1, obj.symptom2, obj.symptom3, obj.tookMedication, obj.notes], (err, results) => {
+    if(err) {
+      console.log(err)
+      cb(err, null)
+    } else {
+      console.log('success')
+      cb(null, obj)
+    }
+  })
+}
+
+const deleteJournalEntry = (id, cb) => {
+  db.query('DELETE FROM journal_entries WHERE entry_id =($1)', [id], (err, results) => {
+    if(err) {
+      console.log(err)
+      cb(err, null)
+    } else {
+      console.log('success')
+      cb(null, results)
+    }
+  })
+}
+
+
+const getQuote = (id, cb) => {
+  db.query('SELECT * FROM quotes WHERE quote_id = ($1)', [id], (err, results) => {
+    if(err) {
+      cb(err, null)
+    } else {
+      cb(null, results)
+    }
+  })
+}
+
 
 module.exports = {
-  createUser,
   getUser,
-  getQuote,
-  postJournalEntry,
+  createUser, 
+  editUserProfile,
   getJournalEntries,
+  postJournalEntry,
+  editJournalEntry,
+  deleteJournalEntry,
+  getQuote,
 }

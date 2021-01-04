@@ -9,6 +9,7 @@ class EditProfile extends React.Component {
     super(props)
     this.state = {
       show: true,
+      userId: props.user.user_id,
       username: props.user.username,
       password: props.user.password,
       confirmPassword: '',
@@ -43,7 +44,6 @@ class EditProfile extends React.Component {
     const password = this.state.password;
     let obj = {
       username: this.state.username,
-      password: this.state.password,
       name: this.state.name,
       email: this.state.email,
       weight: this.state.weight,
@@ -51,26 +51,9 @@ class EditProfile extends React.Component {
       heightInches: this.state.heightInches,
       medication: this.state.medication,
     }
-    if(this.state.signup === false) {
-      axios.get(`/users/${username}`)
-      .then((result) => {
-        console.log(result)
-        if(result.data[0]['p'] === obj.password) {
-          ReactDOM.unmountComponentAtNode(document.getElementById('login'))
-          ReactDOM.render(<Homepage user={result.data[0]} />, document.getElementById('homepage'))
-        } else {
-          this.setState({passwordMatch: false})
-        }
-      })
-    } else {
-      console.log(obj)
-      axios.post('/users', obj)
-      .then((result) => {
-        ReactDOM.unmountComponentAtNode(document.getElementById('login'))
-        ReactDOM.render(<Homepage user={obj} />, document.getElementById('homepage'))
-      })
+      axios.put(`/users/${this.state.userId}`, obj)
+      .then((result) => console.log(result))
       .catch((err) => console.log(err))
-    }
   }
   render() {
 
@@ -88,7 +71,7 @@ class EditProfile extends React.Component {
               <Col>
               <Form.Group name='name'>
                 <Form.Label>Name</Form.Label>
-                <Form.Control type='text' name='name' value={this.state.username} onChange={this.handleChange}/>
+                <Form.Control type='text' name='name' value={this.state.name} onChange={this.handleChange}/>
               </Form.Group>
               </Col>
           </Row>
@@ -140,7 +123,7 @@ class EditProfile extends React.Component {
               </Row>
               <Row>
                 <Col>
-                  <Button type='submit'>Update Profile</Button>
+                  <Button type='submit' onClick={this.handleSubmit}>Update Profile</Button>
                 </Col>
               </Row>
             </Col>

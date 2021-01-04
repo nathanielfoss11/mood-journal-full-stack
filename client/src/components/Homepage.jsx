@@ -35,7 +35,7 @@ class Homepage extends React.Component {
   handleClick(event) {
     event.preventDefault();
     let userId = this.state.userId
-    ReactDOM.render(<Container><Col><JournalEntry user={this.state.user} /></Col></Container>, document.getElementById('modal'))
+    ReactDOM.render(<Container><Col><JournalEntry user={this.state.user} show={true}/></Col></Container>, document.getElementById('modal'))
   }
 
   handleUpdateProfile(event) {
@@ -49,7 +49,7 @@ class Homepage extends React.Component {
         <Col>
           <Row>
             <Col>
-              <h2>Hello, {this.state.username}</h2>
+              <h2>Hello, {this.state.user.name}</h2>
             </Col>
             <Col>
             </Col>
@@ -78,8 +78,8 @@ class Homepage extends React.Component {
               <h3 id='quote'>"{this.state.quoteObj['quote']}" -{this.state.quoteObj['author']}</h3>
             </Col>
           </Row>
-          <Row>
-            <Col>
+          <Row id='journalColumn'>
+            <Col id='journalColumn'>
             <br />
             <br />
             <Row id='journalTitle'>

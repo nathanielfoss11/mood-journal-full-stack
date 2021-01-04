@@ -8,7 +8,8 @@ class ViewJournalEntry extends React.Component {
     console.log(props)
     this.state = {
       show: true,
-      userId: props.user.user_id,
+      entryId: props.user.entryId,
+      userId: props.user.userId,
       username: props.user.username,
       hasMedication: '',
       mood: props.user.mood.toString(),
@@ -28,11 +29,19 @@ class ViewJournalEntry extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleClose = this.handleClose.bind(this)
     this.handleMoodClick = this.handleMoodClick.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   handleClose(event) {
     event.preventDefault();
     this.setState({show: false})
+  }
+
+  handleDelete(event) {
+    event.preventDefault();
+    axios.delete(`/journal/${this.state.entryId}`)
+    .then((results) => console.log(results))
+    .catch((err) => console.log(err))
   }
 
   handleChange(event) {
@@ -49,20 +58,21 @@ class ViewJournalEntry extends React.Component {
     event.preventDefault();
     const userId = this.state.userId
     const journalObj = {
-      user_id: this.state.userId,
-      entry_date: this.state.date,
+      entryId: this.state.entryId,
+      userId: this.state.userId,
+      entryDate: this.state.date,
       mood: this.state.mood,
-      hours_of_sleep: this.state.hoursOfSleep,
+      hoursOfSleep: this.state.hoursOfSleep,
       activity1: this.state.activity1,
       activity2: this.state.activity2,
       activity3: this.state.activity3,
       symptom1: this.state.symptom1,
       symptom2: this.state.symptom2,
       symptom3: this.state.symptom3,
-      took_medication: this.state.tookMedication,
+      tookMedication: this.state.tookMedication,
       notes: this.state.notes,
     }
-    axios.post(`/users/${userId}/journal`, journalObj)
+    axios.put(`/users/${userId}/journal`, journalObj)
     .then((results) => console.log('Success'))
     .catch((err) => console.log(err))
   }
@@ -302,7 +312,11 @@ class ViewJournalEntry extends React.Component {
             </Row>
             <Row>
               <Col>
-                <Button id='journalEntrySubmit' type='submit' onClick={this.handleSubmit}>Submit Edits</Button>
+                <Button id='journalEntrySubmit' onClick={this.handleSubmit}>Submit Edits</Button>
+              </Col>
+
+              <Col>
+                <Button id='journalEntryDelete' onClick={this.handleDelete}>Delete</Button>
               </Col>
             </Row>
           </Col>
