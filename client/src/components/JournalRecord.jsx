@@ -113,12 +113,21 @@ class JournalRecord extends React.Component {
       mood = <p>-</p>
     }
 
-    let notes;
+    let notes, hours, expand;
     if(this.state.notes.length > 50 && this.state.readMore === false) {
       notes = this.state.notes.slice(0, 50);
-      notes += '...'
-    } else {
+      expand = <a onClick={this.handleReadMore}>...Read More</a>
+    } else if(this.state.readMore === true) {
       notes = this.state.notes
+      expand = <a onClick={this.handleReadMore}><b>&nbsp; Read Less</b></a>
+    } else{
+      notes = this.state.notes
+    }
+
+    if(this.state.hoursOfSleep === 1) {
+      hours = 'hour'
+    } else {
+      hours = 'hours'
     }
 
     return(
@@ -130,16 +139,16 @@ class JournalRecord extends React.Component {
           {mood}
         </Col>
         <Col xl={1}>
-          <p id='dateRecord'>{this.state.hoursOfSleep} hours</p>
+          <p id='dateRecord'>{this.state.hoursOfSleep} {hours}</p>
         </Col>
         <Col>
-          <p id='dateRecord' >{notes}<a onClick={this.handleReadMore}>Read More</a></p>
+          <p id='dateRecord' >{notes}{expand}</p>
         </Col>
         <Col xl={1}>
-        <Button onClick={this.handleViewClick} id='viewEntry'>View</Button>
+          <Button onClick={this.handleViewClick} id='viewEntry'>View</Button>
         </Col>
         <Col xl={1}>
-        <Button onClick={this.handleEditClick} id='viewEntry'>Edit</Button>
+          <Button onClick={this.handleEditClick} id='viewEntry'>Edit</Button>
         </Col>
      </Row>
     )

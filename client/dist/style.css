@@ -2,6 +2,10 @@ html {
   background-color: #CBE1EF;
 }
 
+a {
+  cursor: pointer;
+}
+
 #App {
   background-color: #CBE1EF;
 }
@@ -48,9 +52,16 @@ h1 {
   text-align: center;
 }
 
+#quoteRefresh {
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 /* Journal Records */
 
 #journalTitle {
+  height: 40px;
   border-bottom: black 4px solid;
 }
 
@@ -75,9 +86,22 @@ h1 {
   margin-top: 3px;
 }
 
+#moodFilter {
+  cursor: pointer;
+}
+
 #filter {
   align-content: flex-end;
   float: right;
+  margin-top: 7px;
+}
+
+#filterTitle {
+  margin-right: 5px;
+}
+
+#clearFilter {
+  cursor: pointer;
 }
 
 /* Form */
@@ -85,6 +109,7 @@ h1 {
   text-align: center;
   align-items: center;
   align-content: center;
+  cursor: pointer;
 }
 
 .moodFace {
@@ -97,6 +122,7 @@ h1 {
 
 #customRating {
   display: none;
+  cursor: pointer;
 }
 
 Modal {
@@ -110,14 +136,15 @@ Modal {
 
 #journalEntrySubmit {
   display: inline;
-  align-content: right;
+  float: right;
+  align-content: flex-end;
   padding-left: 15px;
 }
 
-/* .modal-content {
-  width: 897px;
-  height: 802px;
-} */
+#journalEntryDelete {
+  background-color: red;
+  border: none;
+}
 
 .modal-90w{
   align-items: center;
@@ -125,7 +152,7 @@ Modal {
   height: 100%;
 }
 
-
+/* pagination */
 
 #react-paginate ul {
   display: inline-block;
@@ -149,18 +176,18 @@ Modal {
   color: #fff;
 }
 .pagination > li > a{
-  border: 1px solid #47ccde ;
+  border: 1px solid black ;
   padding: 5px 10px;
   outline: none;
   cursor: pointer;
 }
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
   background-color: #47ccde ;
-  border-color: #47ccde;
+  border-color: black;
   outline: none ;
 }
 .pagination > li > a, .pagination > li > span{
-  color: #47ccde
+  color: black
 }
 .pagination > li:first-child > a, .pagination > li:first-child > span, .pagination > li:last-child > a, .pagination > li:last-child > span{
   border-radius: unset

@@ -35,10 +35,18 @@ class Homepage extends React.Component {
     this.handleClearFilterClick = this.handleClearFilterClick.bind(this);
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.getQuote = this.getQuote.bind(this);
     this.getEntries();
   }
 
   componentDidMount() {
+    let quoteId = Math.floor(Math.random() * 1664)
+    axios.get(`/quotes/${quoteId}`)
+    .then((result) => this.setState({quoteObj: result.data[0]}))
+    .catch((err) => console.log(err))
+  }
+
+  getQuote() {
     let quoteId = Math.floor(Math.random() * 1664)
     axios.get(`/quotes/${quoteId}`)
     .then((result) => this.setState({quoteObj: result.data[0]}))
@@ -118,7 +126,7 @@ class Homepage extends React.Component {
   render() {
     let clearFilter;
     if(this.state.filterValue !== null) {
-      clearFilter = <p onClick={this.handleClearFilterClick}>Clear Filter</p>
+      clearFilter = <p id='clearFilter' onClick={this.handleClearFilterClick}>&nbsp;&nbsp;Clear Filter</p>
     }
     return(
       <Container>
@@ -152,6 +160,7 @@ class Homepage extends React.Component {
             <Col id='quoteTitle'>
               <h4>Today's Motivation</h4>
               <h3 id='quote'>"{this.state.quoteObj['quote']}" -{this.state.quoteObj['author']}</h3>
+              <a id='quoteRefresh'onClick={this.getQuote}>Refresh</a>
             </Col>
           </Row>
           <Row id='journalColumn'>
@@ -164,12 +173,12 @@ class Homepage extends React.Component {
                 </Col>
                 <Col>
                   <Row id='filter'>
-                    <p>Filter:</p>
-                    <img width='35px' length='auto' name='mood' src='https://i.ibb.co/F0rqT9T/one.png' className={this.state.moodFilter === '1' ? 'moodFaceSelected': 'moodFace'}  alt='1'  onClick={this.handleMoodClick}/>
-                    <img width='35px' name='mood' src="https://i.ibb.co/hWjCmDD/two.png" alt='2' className={this.state.moodFilter === '2' ? 'moodFaceSelected': 'moodFace'} onClick={this.handleMoodClick} />
-                    <img src="https://i.ibb.co/wcmnkL3/three.png" name='mood' alt='3' id='moodFace' width='35px'  className={this.state.moodFilter === '3' ? 'moodFaceSelected': 'moodFace'} onClick={this.handleMoodClick}/>
-                    <img src="https://i.ibb.co/5krKP82/four.png" name='mood' alt='4' width='35px' className={this.state.moodFilter === '4' ? 'moodFaceSelected': 'moodFace'}  onClick={this.handleMoodClick}/>
-                    <img src="https://i.ibb.co/pW74MGg/five.png" name='mood' alt='5' width='35px' className={this.state.moodFilter === '5' ? 'moodFaceSelected': 'moodFace'}  onClick={this.handleMoodClick}/>
+                    <p id='filterTitle'>Filter:</p>
+                    <img id='moodFilter' width='25px' height='25px' length='auto' name='mood' src='https://i.ibb.co/F0rqT9T/one.png' className={this.state.moodFilter === '1' ? 'moodFaceSelected': 'moodFace'}  alt='1'  onClick={this.handleMoodClick}/>
+                    <img id='moodFilter' width='25px' height='25px' name='mood' src="https://i.ibb.co/hWjCmDD/two.png" alt='2' className={this.state.moodFilter === '2' ? 'moodFaceSelected': 'moodFace'} onClick={this.handleMoodClick} />
+                    <img id='moodFilter' src="https://i.ibb.co/wcmnkL3/three.png" name='mood' alt='3' id='moodFace' width='25px' height='25px'  className={this.state.moodFilter === '3' ? 'moodFaceSelected': 'moodFace'} onClick={this.handleMoodClick}/>
+                    <img id='moodFilter' src="https://i.ibb.co/5krKP82/four.png" name='mood' alt='4' width='25px' height='25px' className={this.state.moodFilter === '4' ? 'moodFaceSelected': 'moodFace'}  onClick={this.handleMoodClick}/>
+                    <img id='moodFilter' src="https://i.ibb.co/pW74MGg/five.png" name='mood' alt='5' width='25px' height='25px' className={this.state.moodFilter === '5' ? 'moodFaceSelected': 'moodFace'}  onClick={this.handleMoodClick}/>
                     {clearFilter}
                   </Row>
                 </Col>
@@ -208,7 +217,7 @@ class Homepage extends React.Component {
               containerClassName={'pagination'}
               subContainerClassName={'pages pagination'}
               activeClassName={'active'}
-            />;
+            />
           </Row>
         </Col>
         <div id='modal'></div>

@@ -69,11 +69,11 @@ class Login extends React.Component {
   render() {
     let name, weight, height, medication, email, signup, login, action, confirmPassword, wrongPassword;
     if(this.state.signup === false) {
-      signup = <p onClick={()=>{this.setState({signup: true})}}><b>Sign Up Here</b></p>
+      signup = <p><a onClick={()=>{this.setState({signup: true})}}><b>Sign Up Here</b></a></p>
       action = 'Log In'
     }
     if(this.state.signup === true) {
-      login = <p onClick={()=>{this.setState({signup: false})}}><b>Log In Here</b></p>
+      login = <p><a onClick={()=>{this.setState({signup: false})}}><b>Log In Here</b></a></p>
       action = 'Sign Up'
       name = 
         <Col>
@@ -104,13 +104,13 @@ class Login extends React.Component {
       </Col>
         <Col>
           <Form.Group name='height'>
-          <Form.Label> Height</Form.Label>
+          <Form.Label>Height</Form.Label>
           <Form.Control type='number' name='heightFeet' value={this.state.heightFeet} onChange={this.handleChange} /> Feet
           </Form.Group>
         </Col>
         <Col>
           <Form.Group>
-          <Form.Label> .</Form.Label>
+          <Form.Label>&nbsp;</Form.Label>
           <Form.Control type='number' name='heightInches' value={this.state.heightInches} onChange={this.handleChange} /> Inches
           </Form.Group>
         </Col>

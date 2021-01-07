@@ -61,14 +61,51 @@ class ViewJournalEntry extends React.Component {
     } else if(splitDate[1] === '12') {
       date = `December ${splitDate[2]}, ${splitDate[0]}`
     }
-    let activityOptions, symptomOptions
+    let activity1, activity2, symptom1, symptom2, symptomOptions
+
+    if(this.state.activity2 !== undefined) {
+      activity1 = this.state.activity1 + ','
+    } else {
+      activity1 = this.state.activity1
+    }
+    if(this.state.activity3 !== undefined) {
+      activity2 = this.state.activity2 + ','
+    } else {
+      activity2 = this.state.activity2
+    }
+    if(this.state.symptom2 !== undefined) {
+      symptom1 = this.state.symptom1 + ','
+    } else {
+      symptom1 = this.state.symptom1
+    }
+    if(this.state.symptom3 !== undefined) {
+      symptom2 = this.state.symptom2 + ','
+    } else {
+      symptom2 = this.state.symptom2
+    }
+    let mood;
+    if(this.state.mood === '1') {
+      mood = <img src='https://i.ibb.co/F0rqT9T/one.png' width='45px' id='moodOnRecord'/>
+    } else if (this.state.mood === '2') {
+      mood = <img src='https://i.ibb.co/hWjCmDD/two.png' width='45px' id='moodOnRecord'/>
+    } else if (this.state.mood === '3') {
+      mood = <img src='https://i.ibb.co/wcmnkL3/three.png' width='45px' id='moodOnRecord'/>
+    } else if (this.state.mood === '4') {
+      mood = <img src='https://i.ibb.co/5krKP82/four.png' width='45px' id='moodOnRecord'/>
+    } else if (this.state.mood === '5') {
+      mood = <img src='https://i.ibb.co/pW74MGg/five.png' width='45px' id='moodOnRecord'/>
+    } else {
+      mood = <p>-</p>
+    }
     return(
       <Modal show={this.state.show} onHide={this.handleClose} className="modal-90w">
-        <Modal.Header closeButton onClick={this.handleClose}>View Your Entry</Modal.Header>
+        <Modal.Header closeButton onClick={this.handleClose}><b>View Your Entry</b></Modal.Header>
         <Col>
           <Row>
+            <br />
+            <br />
             <Col xl={3}>
-              <p>Date</p>
+              <p><b>Date:</b></p>
             </Col> 
             <Col>
               <p>{date}</p>
@@ -76,15 +113,15 @@ class ViewJournalEntry extends React.Component {
           </Row>
           <Row>
             <Col xl={3}>
-              <p>Mood</p>
+              <p><b>Mood:</b></p>
             </Col> 
             <Col>
-              <p>{this.state.mood}</p>
+              <p>{mood}</p>
             </Col>
           </Row>
           <Row>
             <Col xl={3}>
-              <p>Sleep</p>
+              <p><b>Sleep:</b></p>
             </Col> 
             <Col>
               <p>{this.state.hoursOfSleep} hours</p>
@@ -92,23 +129,23 @@ class ViewJournalEntry extends React.Component {
           </Row>
           <Row>
             <Col xl={3}>
-              <p>Activities</p>
+              <p><b>Activities:</b></p>
             </Col> 
             <Col>
-              <p>{this.state.activity1}, {this.state.activity2}, {this.state.activity3}</p>
+              <p>{activity1} {activity2} {this.state.activity3}</p>
             </Col>
           </Row>
           <Row>
             <Col xl={3}>
-              <p>Symptoms</p>
+              <p><b>Symptoms:</b></p>
             </Col> 
             <Col>
-              <p>{this.state.symptom1}, {this.state.symptom2}, {this.state.symptom3}</p>
+              <p>{symptom1} {symptom2} {this.state.symptom3}</p>
             </Col>
           </Row>
           <Row>
             <Col xl={3}>
-              <p>Notes</p>
+              <p><b>Notes:</b></p>
             </Col> 
             <Col>
               <p>{this.state.notes}</p>

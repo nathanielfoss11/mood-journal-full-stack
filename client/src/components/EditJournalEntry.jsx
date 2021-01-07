@@ -307,11 +307,10 @@ class EditJournalEntry extends React.Component {
             </Row>
             <Row>
               <Col>
-                <Button id='journalEntrySubmit' onClick={this.handleSubmit}>Submit Edits</Button>
-              </Col>
-
-              <Col>
                 <Button id='journalEntryDelete' onClick={this.handleDelete}>Delete</Button>
+              </Col>
+              <Col>
+                <Button id='journalEntrySubmit' onClick={this.handleSubmit}>Submit Edits</Button>
               </Col>
             </Row>
           </Col>
