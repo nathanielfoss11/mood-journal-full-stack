@@ -6,6 +6,10 @@ html {
   background-color: #CBE1EF;
 }
 
+#header {
+  border-bottom: 1px solid black;
+}
+
 h1 {
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
@@ -15,9 +19,28 @@ h1 {
   font-weight: bold;
 }
 
+#logoutButton {
+  font-size: 14px;
+  float: right;
+  align-content: flex-end;
+}
+
 #actionTitle {
   text-align: left;
   font-weight: bolder;
+}
+
+#journalEntryButton {
+  font-size: 12px;
+}
+
+#updateProfileButton {
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+#quoteTitle {
+  text-align: center;
 }
 
 #quote {
@@ -50,6 +73,11 @@ h1 {
 
 #moodOnRecord {
   margin-top: 3px;
+}
+
+#filter {
+  align-content: flex-end;
+  float: right;
 }
 
 /* Form */
@@ -95,4 +123,45 @@ Modal {
   align-items: center;
   width: 100%;
   height: 100%;
+}
+
+
+
+#react-paginate ul {
+  display: inline-block;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+#react-paginate li {
+  display: inline-block;
+}
+
+.pagination {
+  margin: 15px auto;
+  display: flex;
+  list-style: none;
+  outline: none;
+}
+.pagination > .active > a{
+  background-color: #47ccde ;
+  border-color: #47ccde ;
+  color: #fff;
+}
+.pagination > li > a{
+  border: 1px solid #47ccde ;
+  padding: 5px 10px;
+  outline: none;
+  cursor: pointer;
+}
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
+  background-color: #47ccde ;
+  border-color: #47ccde;
+  outline: none ;
+}
+.pagination > li > a, .pagination > li > span{
+  color: #47ccde
+}
+.pagination > li:first-child > a, .pagination > li:first-child > span, .pagination > li:last-child > a, .pagination > li:last-child > span{
+  border-radius: unset
 }

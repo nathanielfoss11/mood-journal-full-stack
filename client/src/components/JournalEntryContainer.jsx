@@ -10,7 +10,6 @@ class JournalEntryContainer extends React.Component {
   }
 
   render() {
-    console.log(this.state.entries)
   return (
     this.state.entries.map((entry) =>
       <JournalRecord entry={entry} />

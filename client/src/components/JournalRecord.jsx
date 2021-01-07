@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 import ViewJournalEntry from './ViewJournalEntry.jsx'
+import EditJournalEntry from './EditJournalEntry.jsx'
 import { Container, Form, Button, Col, Row } from 'react-bootstrap'
 
 class JournalRecord extends React.Component {
   constructor(props) {
     super(props)
-    console.log(props.entry)
     this.state = {
       entryId: props.entry.entry_id,
       userId: props.entry.user_id,
@@ -26,19 +26,31 @@ class JournalRecord extends React.Component {
       viewEntry: false,
       readMore: false,
     }
-    this.handleClick = this.handleClick.bind(this)
+    this.handleViewClick = this.handleViewClick.bind(this)
     this.handleViewEntry = this.handleViewEntry.bind(this)
     this.handleReadMore = this.handleReadMore.bind(this)
+    this.handleEditClick = this.handleEditClick.bind(this)
   }
 
-  handleClick(event) {
+  handleViewClick(event) {
     event.preventDefault();
     this.setState({viewEntry: true})
     this.handleViewEntry()
   }
 
+  handleEditClick(event) {
+    event.preventDefault();
+    this.setState({viewEntry: true})
+    this.handleEditEntry()
+  }
+
   handleViewEntry() {
+    console.log(this.state)
     ReactDOM.render(<ViewJournalEntry user={this.state} />, document.getElementById('modal'))
+  }
+
+  handleEditEntry() {
+    ReactDOM.render(<EditJournalEntry user={this.state} />, document.getElementById('modal'))
   }
 
   handleReadMore() {
@@ -60,7 +72,6 @@ class JournalRecord extends React.Component {
     let date = '';
     let shortDate = this.state.entryDate.slice(0, 10)
     let splitDate = shortDate.split('-');
-    console.log(splitDate)
     if(splitDate[1] === '01') {
       date = `January ${splitDate[2]}, ${splitDate[0]}`
     } else if(splitDate[1] === '02') {
@@ -86,10 +97,6 @@ class JournalRecord extends React.Component {
     } else if(splitDate[1] === '12') {
       date = `December ${splitDate[2]}, ${splitDate[0]}`
     }
-
-    console.log(date)
-
-
 
     let mood;
     if(this.state.mood === 1) {
@@ -128,8 +135,11 @@ class JournalRecord extends React.Component {
         <Col>
           <p id='dateRecord' >{notes}<a onClick={this.handleReadMore}>Read More</a></p>
         </Col>
-        <Col xl={2}>
-        <Button onClick={this.handleClick} id='viewEntry'>View Entry</Button>
+        <Col xl={1}>
+        <Button onClick={this.handleViewClick} id='viewEntry'>View</Button>
+        </Col>
+        <Col xl={1}>
+        <Button onClick={this.handleEditClick} id='viewEntry'>Edit</Button>
         </Col>
      </Row>
     )

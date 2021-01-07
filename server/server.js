@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const PORT = 3001;
+const PORT = 3002;
 const queries = require('./queries.js')
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
@@ -23,7 +23,6 @@ app.post('/users', (req, res) => {
 	userObj.weight = parseInt(userObj.weight)
 	userObj.heightFeet = parseInt(userObj.heightFeet)
 	userObj.heightInches = parseInt(userObj.heightInches)
-	console.log(userObj)
 	queries.createUser(userObj, (err, result1) => {
 		if(err) {
 			console.log(err)
@@ -41,7 +40,6 @@ app.post('/users', (req, res) => {
 })
 
 app.get('/quotes/:id', (req, res) => {
-	console.log(req.data)
 	let id = parseInt(req.params.id) + 1664
 	queries.getQuote(id, (err, result) => {
 		if(err) {
@@ -56,9 +54,8 @@ app.get('/quotes/:id', (req, res) => {
 app.post('/users/:id/journal', (req, res) => {
 	let userObj = req.body
 	let id = req.params.id
-	userObj.hours_of_sleep = parseInt(userObj.hours_of_sleep)
+	userObj.hoursOfSleep = parseInt(userObj.hoursOfSleep)
 	userObj.mood = parseInt(userObj.mood)
-	console.log(userObj)
 	queries.postJournalEntry(id, userObj, (err, result) => {
 		if(err) {
 			console.log(err)
@@ -71,10 +68,9 @@ app.post('/users/:id/journal', (req, res) => {
 app.put('/users/:id/journal', (req, res) => {
 	let userObj = req.body
 	let id = req.params.id
-	userObj.hours_of_sleep = parseInt(userObj.hours_of_sleep)
+	userObj.hoursOfSleep = parseInt(userObj.hoursOfSleep)
 	userObj.mood = parseInt(userObj.mood)
 	userObj.entryId = parseInt(userObj.entryId)
-	console.log(userObj)
 	queries.editJournalEntry(id, userObj, (err, result) => {
 		if(err) {
 			console.log(err)
@@ -112,7 +108,6 @@ app.put('/users/:id', (req, res) => {
 	userObj.weight = parseInt(userObj.weight)
 	userObj.heightFeet = parseInt(userObj.heightFeet)
 	userObj.heightInches = parseInt(userObj.heightInches)
-	console.log(userObj)
 	queries.editUserProfile(id, userObj, (err, result) => {
 		if(err) {
 			console.log(err)

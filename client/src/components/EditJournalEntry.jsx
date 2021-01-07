@@ -1,50 +1,47 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Container, Form, Button, Col, Row, Modal} from 'react-bootstrap';
+import { Form, Button, Col, Row, Modal} from 'react-bootstrap';
 import axios from 'axios';
 
-class JournalEntry extends React.Component {
+class EditJournalEntry extends React.Component {
   constructor(props) {
     super(props)
-    console.log(props)
     this.state = {
-      userId: props.user.user_id,
-      show: props.show,
-      username: '',
+      show: true,
+      entryId: props.user.entryId,
+      userId: props.user.userId,
+      username: props.user.username,
       hasMedication: '',
-      mood: 0,
-      hoursOfSleep: 0.0,
-      tookMedication: null,
-      activity1: null,
-      activity2: null,
-      activity2: null,
-      symptom1: null,
-      symptom2: null,
-      symptom3: null,
-      notes:  null,
-      date: '',
+      mood: props.user.mood.toString(),
+      hoursOfSleep: props.user.hoursOfSleep,
+      tookMedication: props.user.tookMedication,
+      activity1: props.user.activity1,
+      activity2: props.user.activity2,
+      activity2: props.user.activity2,
+      symptom1: props.user.symptom1,
+      symptom2: props.user.symptom2,
+      symptom3: props.user.symptom3,
+      notes:  props.user.notes,
+      entryDate: props.user.entryDate.slice(0, 10),
       moodClicked: false,
-      moodOneActive: false,
-      moodTwoActive: false,
-      moodThreeActive: false,
-      moodFourActive: false,
-      moodFiveActive: false,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleClose = this.handleClose.bind(this)
     this.handleMoodClick = this.handleMoodClick.bind(this)
-    this.unmountModal = this.unmountModal.bind(this)
-    this.handleEntrySubmit = props.handleEntrySubmit.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
-  handleClose() {
+  handleClose(event) {
+    event.preventDefault();
     this.setState({show: false})
-    this.unmountModal()
   }
 
-  unmountModal() {
-    ReactDOM.unmountComponentAtNode(document.getElementById('modal'))
+  handleDelete(event) {
+    event.preventDefault();
+    axios.delete(`/journal/${this.state.entryId}`)
+    .then((results) => console.log(results))
+    .catch((err) => console.log(err))
   }
 
   handleChange(event) {
@@ -58,33 +55,31 @@ class JournalEntry extends React.Component {
     event.preventDefault();
     const userId = this.state.userId
     const journalObj = {
-      user_id: this.state.userId,
-      entry_date: this.state.date,
+      entryId: this.state.entryId,
+      userId: this.state.userId,
+      entryDate: this.state.entryDate,
       mood: this.state.mood,
-      hours_of_sleep: this.state.hoursOfSleep,
+      hoursOfSleep: this.state.hoursOfSleep,
       activity1: this.state.activity1,
       activity2: this.state.activity2,
       activity3: this.state.activity3,
       symptom1: this.state.symptom1,
       symptom2: this.state.symptom2,
       symptom3: this.state.symptom3,
-      took_medication: this.state.tookMedication,
+      tookMedication: this.state.tookMedication,
       notes: this.state.notes,
     }
-    axios.post(`/users/${userId}/journal`, journalObj)
-    .then((results) => this.handleEntrySubmit())
+
+    axios.put(`/users/${userId}/journal`, journalObj)
+    .then((results) => ReactDOM.unmountComponentAtNode(document.getElementById('modal')))
     .catch((err) => console.log(err))
-    this.handleClose()
   }
 
   handleMoodClick(event) {
     const target = event.target;
     const value = target.alt;
-    console.log(value)
     const name = target.name;
-    console.log(name)
     this.setState({[name]: value});
-    console.log(this.state)
   }
 
 
@@ -92,7 +87,7 @@ class JournalEntry extends React.Component {
     let activityOptions, symptomOptions
     return(
       <Modal show={this.state.show} onHide={this.handleClose} className="modal-90w">
-        <Modal.Header closeButton onClick={this.handleClose}></Modal.Header>
+        <Modal.Header closeButton onClick={this.handleClose}><b>Edit Your Entry</b></Modal.Header>
         <Form id='journalEntry'>
           <Col>
             <Row>
@@ -135,7 +130,7 @@ class JournalEntry extends React.Component {
               <Col>
                 <Form.Group name='date'>
                   <Form.Label>Date*</Form.Label>
-                  <Form.Control type='date' name='date' value={this.state.date} onChange={this.handleChange}/>
+                  <Form.Control type='date' name='date' value={this.state.entryDate} onChange={this.handleChange}/>
                 </Form.Group>
               </Col>
               <Col>
@@ -312,7 +307,11 @@ class JournalEntry extends React.Component {
             </Row>
             <Row>
               <Col>
-                <Button id='journalEntrySubmit' type='submit' onClick={this.handleSubmit}>Submit</Button>
+                <Button id='journalEntrySubmit' onClick={this.handleSubmit}>Submit Edits</Button>
+              </Col>
+
+              <Col>
+                <Button id='journalEntryDelete' onClick={this.handleDelete}>Delete</Button>
               </Col>
             </Row>
           </Col>
@@ -322,4 +321,4 @@ class JournalEntry extends React.Component {
   }
 }
 
-export default JournalEntry
+export default EditJournalEntry

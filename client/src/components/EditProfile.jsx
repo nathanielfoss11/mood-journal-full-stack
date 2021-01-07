@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import { Container, Form, Button, Col, Row, Modal} from 'react-bootstrap';
+import { Form, Button, Col, Row, Modal} from 'react-bootstrap';
 import Homepage from './Homepage.jsx';
 
 class EditProfile extends React.Component {
@@ -21,14 +21,14 @@ class EditProfile extends React.Component {
       medication: props.user.medication,
       passwordMatch: true,
     }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleClose = this.handleClose.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   handleClose(event) {
     event.preventDefault();
-    this.setState({show: false})
+    this.setState({show: false});
   }
 
   handleChange(event) {
@@ -52,8 +52,8 @@ class EditProfile extends React.Component {
       medication: this.state.medication,
     }
       axios.put(`/users/${this.state.userId}`, obj)
-      .then((result) => console.log(result))
-      .catch((err) => console.log(err))
+      .then((result) => ReactDOM.unmountComponentAtNode(document.getElementById('modal')))
+      .catch((err) => console.log(err));
   }
   render() {
 

@@ -47,28 +47,22 @@ class Login extends React.Component {
     if(this.state.signup === false) {
       axios.get(`/users/${username}`)
       .then((result) => {
-        console.log(result)
         if(result.data[0]['p'] === obj.password) {
+          result.data[0]['p'] = null;
           ReactDOM.unmountComponentAtNode(document.getElementById('login'))
-          ReactDOM.render(<Homepage user={result.data[0]} />, document.getElementById('homepage'))
+          ReactDOM.render(<Homepage user={result.data[0]} />, document.getElementById('homepage'));
         } else {
-          this.setState({passwordMatch: false})
+          this.setState({passwordMatch: false});
         }
       })
     } else {
-      console.log(obj)
       axios.post('/users', obj)
       .then((result) => {
         ReactDOM.unmountComponentAtNode(document.getElementById('login'))
-        ReactDOM.render(<Homepage user={obj} />, document.getElementById('homepage'))
+        ReactDOM.render(<Homepage user={obj} />, document.getElementById('homepage'));
       })
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err));
     }
-    //route for looking up password
-    //check to see if password matches
-      //if it does not then an error pops up
-      //if it does then ReactDOM.render homepage
-
   }
 
 
@@ -98,20 +92,6 @@ class Login extends React.Component {
             </Col>
           </Form.Row>
         </Col>
-      // email = 
-      //   <Col>
-      //   <Form.Group name='email'>
-      //     <Form.Label>Email</Form.Label>
-      //     <Form.Control type='email' name='email' value={this.state.email} onChange={this.handleChange}/>
-      //   </Form.Group>
-      //   </Col>
-      // weight = 
-      // <Col>
-      // <Form.Group name='weight'>
-      //   <Form.Label>Weight</Form.Label>
-      //   <Form.Control type='number' name='weight' value={this.state.weight} onChange={this.handleChange}/>
-      // </Form.Group>
-      // </Col>
 
       height = 
       <Col>
