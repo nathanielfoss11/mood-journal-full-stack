@@ -73,23 +73,20 @@ class JournalEntry extends React.Component {
     }
     axios.post(`/users/${userId}/journal`, journalObj)
     .then((results) => this.handleEntrySubmit())
-    .catch((err) => console.log(err))
-    this.handleClose()
+    .catch((err) => console.log(err));
+    this.handleClose();
   }
 
   handleMoodClick(event) {
     const target = event.target;
     const value = target.alt;
-    console.log(value)
     const name = target.name;
-    console.log(name)
     this.setState({[name]: value});
-    console.log(this.state)
   }
 
 
   render() {
-    let activityOptions, symptomOptions
+    let activityOptions, symptomOptions;
     return(
       <Modal show={this.state.show} onHide={this.handleClose} className="modal-90w">
         <Modal.Header closeButton onClick={this.handleClose}></Modal.Header>

@@ -30,6 +30,7 @@ class EditJournalEntry extends React.Component {
     this.handleClose = this.handleClose.bind(this)
     this.handleMoodClick = this.handleMoodClick.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    this.handleModalClick = props.handleModalClick.bind(this)
   }
 
   handleClose(event) {
@@ -40,7 +41,7 @@ class EditJournalEntry extends React.Component {
   handleDelete(event) {
     event.preventDefault();
     axios.delete(`/journal/${this.state.entryId}`)
-    .then((results) => console.log(results))
+    .then((results) => ReactDOM.unmountComponentAtNode(document.getElementById('modal')))
     .catch((err) => console.log(err))
   }
 
@@ -71,7 +72,9 @@ class EditJournalEntry extends React.Component {
     }
 
     axios.put(`/users/${userId}/journal`, journalObj)
-    .then((results) => ReactDOM.unmountComponentAtNode(document.getElementById('modal')))
+    .then((results) => {this.handleModalClick(); return results})
+    .then((results) => {ReactDOM.unmountComponentAtNode(document.getElementById('modal')); return results})
+    .then((results) => this.handleModalClick())
     .catch((err) => console.log(err))
   }
 

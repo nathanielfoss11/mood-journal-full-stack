@@ -176,6 +176,7 @@ Modal {
   color: #fff;
 }
 .pagination > li > a{
+  background-color: lightgray ;
   border: 1px solid black ;
   padding: 5px 10px;
   outline: none;

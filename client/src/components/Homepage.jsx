@@ -36,37 +36,43 @@ class Homepage extends React.Component {
     this.handlePageClick = this.handlePageClick.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.getQuote = this.getQuote.bind(this);
+    this.handleModalClick = this.handleModalClick.bind(this);
     this.getEntries();
   }
 
   componentDidMount() {
-    let quoteId = Math.floor(Math.random() * 1664)
+    let quoteId = Math.floor(Math.random() * 1664);
     axios.get(`/quotes/${quoteId}`)
     .then((result) => this.setState({quoteObj: result.data[0]}))
-    .catch((err) => console.log(err))
+    .catch((err) => console.log(err));
   }
 
   getQuote() {
-    let quoteId = Math.floor(Math.random() * 1664)
+    let quoteId = Math.floor(Math.random() * 1664);
     axios.get(`/quotes/${quoteId}`)
     .then((result) => this.setState({quoteObj: result.data[0]}))
-    .catch((err) => console.log(err))
+    .catch((err) => console.log(err));
   }
 
   getEntries() {
     axios.get(`/users/${this.state.userId}/journal`)
     .then((result) => {this.setState({journalEntries: result.data}); return result})
     .then((result) => {this.setState({pageCount: result.data.length / 5}); return result})
-    .then((result) => ReactDOM.render(<JournalEntryContainer entries={result.data.slice(0,5)} />, document.getElementById('journal')))
-    .catch((err) => console.log(err))
+    .then((result) => ReactDOM.render(<JournalEntryContainer entries={result.data.slice(0,5)} handleModalClick={this.handleModalClick = this.handleModalClick.bind(this)}/>, document.getElementById('journal')))
+    .catch((err) => console.log(err));
+  }
+
+  handleModalClick() {
+    ReactDOM.unmountComponentAtNode(document.getElementById('journal'))
+    this.getEntries();
   }
 
   handlePageClick(page) {
     let entryStart = page * 5 - 5;
     let moreEntries = entryStart+ 5;
-    this.setState({entriesShown: moreEntries})
-    ReactDOM.unmountComponentAtNode(document.getElementById('journal'))
-    ReactDOM.render(<JournalEntryContainer entries={this.state.journalEntries.slice(entryStart, moreEntries)} />, document.getElementById('journal'))
+    this.setState({entriesShown: moreEntries});
+    ReactDOM.unmountComponentAtNode(document.getElementById('journal'));
+    ReactDOM.render(<JournalEntryContainer entries={this.state.journalEntries.slice(entryStart, moreEntries)} />, document.getElementById('journal'));
   }
 
   handleMoreEntries(event) {
@@ -76,14 +82,14 @@ class Homepage extends React.Component {
   }
 
   handleEntrySubmit() {
-    ReactDOM.unmountComponentAtNode(document.getElementById('journal'))
-    this.getEntries()
+    ReactDOM.unmountComponentAtNode(document.getElementById('journal'));
+    this.getEntries();
   }
 
   handleClick(event) {
     event.preventDefault();
-    let userId = this.state.userId
-    ReactDOM.render(<Container><Col><JournalEntry user={this.state.user} show={true} handleEntrySubmit={this.handleEntrySubmit = this.handleEntrySubmit.bind(this)}/></Col></Container>, document.getElementById('modal'))
+    let userId = this.state.userId;
+    ReactDOM.render(<Container><Col><JournalEntry user={this.state.user} show={true} handleEntrySubmit={this.handleEntrySubmit = this.handleEntrySubmit.bind(this)}/></Col></Container>, document.getElementById('modal'));
   }
 
   handleMoodClick(event) {
@@ -96,12 +102,12 @@ class Homepage extends React.Component {
   handleFilter(value) {
     let filteredResults = [];
     let journalEntries = this.state.journalEntries;
-    value = value.toString()
-    this.setState({filterValue: value})
-    journalEntries.map((entry) => {if(entry.mood == value){filteredResults.push(entry)}})
-    this.setState({pageCount: filteredResults.length / 5})
-    ReactDOM.unmountComponentAtNode(document.getElementById('journal'))
-    ReactDOM.render(<JournalEntryContainer entries={filteredResults.slice(0, (this.state.entriesShown))} />, document.getElementById('journal'))
+    value = value.toString();
+    this.setState({filterValue: value});
+    journalEntries.map((entry) => {if(entry.mood == value){filteredResults.push(entry)}});
+    this.setState({pageCount: filteredResults.length / 5});
+    ReactDOM.unmountComponentAtNode(document.getElementById('journal'));
+    ReactDOM.render(<JournalEntryContainer entries={filteredResults.slice(0, (this.state.entriesShown))} />, document.getElementById('journal'));
   }
 
   handleClearFilterClick() {
@@ -109,18 +115,18 @@ class Homepage extends React.Component {
     this.setState({moodFilter: null})
     this.setState({pageCount: this.state.journalEntries.length / 5})
     ReactDOM.unmountComponentAtNode(document.getElementById('journal'))
-    ReactDOM.render(<JournalEntryContainer entries={this.state.journalEntries.slice(0, 5)} />, document.getElementById('journal'))
+    ReactDOM.render(<JournalEntryContainer entries={this.state.journalEntries.slice(0, 5)} />, document.getElementById('journal'));
   }
 
 
   handleUpdateProfile(event) {
     event.preventDefault();
-    ReactDOM.render(<EditProfile user={this.state.user}/>, document.getElementById('modal'))
+    ReactDOM.render(<EditProfile user={this.state.user} handleModalClick={this.handleModalClick = this.handleModalClick.bind(this)}/>, document.getElementById('modal'));
   }
 
   handleLogout() {
-    ReactDOM.unmountComponentAtNode(document.getElementById('homepage'))
-    ReactDOM.render(<Login/>, document.getElementById('login'))
+    ReactDOM.unmountComponentAtNode(document.getElementById('homepage'));
+    ReactDOM.render(<Login/>, document.getElementById('login'));
   }
 
   render() {

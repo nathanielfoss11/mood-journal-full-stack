@@ -26,10 +26,12 @@ class JournalRecord extends React.Component {
       viewEntry: false,
       readMore: false,
     }
-    this.handleViewClick = this.handleViewClick.bind(this)
-    this.handleViewEntry = this.handleViewEntry.bind(this)
-    this.handleReadMore = this.handleReadMore.bind(this)
-    this.handleEditClick = this.handleEditClick.bind(this)
+    this.handleViewClick = this.handleViewClick.bind(this);
+    this.handleViewEntry = this.handleViewEntry.bind(this);
+    this.handleReadMore = this.handleReadMore.bind(this);
+    this.handleEditClick = this.handleEditClick.bind(this);
+    this.handleEditEntry = this.handleEditEntry.bind(this);
+    this.handleModalClick = props.handleModalClick.bind(this)
   }
 
   handleViewClick(event) {
@@ -50,7 +52,8 @@ class JournalRecord extends React.Component {
   }
 
   handleEditEntry() {
-    ReactDOM.render(<EditJournalEntry user={this.state} />, document.getElementById('modal'))
+    ReactDOM.render(<EditJournalEntry handleModalClick={
+      this.handleModalClick = this.handleModalClick.bind(this)} user={this.state} />, document.getElementById('modal'))
   }
 
   handleReadMore() {

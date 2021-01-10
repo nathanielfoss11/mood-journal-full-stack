@@ -24,6 +24,7 @@ class EditProfile extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleModalClick = props.handleModalClick.bind(this)
   }
 
   handleClose(event) {
@@ -52,6 +53,7 @@ class EditProfile extends React.Component {
       medication: this.state.medication,
     }
       axios.put(`/users/${this.state.userId}`, obj)
+      .then((result) => {this.handleModalClick(); return result})
       .then((result) => ReactDOM.unmountComponentAtNode(document.getElementById('modal')))
       .catch((err) => console.log(err));
   }
