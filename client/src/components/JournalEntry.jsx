@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Container, Form, Button, Col, Row, Modal} from 'react-bootstrap';
+import { Form, Button, Col, Row, Modal} from 'react-bootstrap';
 import axios from 'axios';
 
 class JournalEntry extends React.Component {
   constructor(props) {
-    super(props)
-    console.log(props)
+    super(props);
     this.state = {
       userId: props.user.user_id,
       show: props.show,

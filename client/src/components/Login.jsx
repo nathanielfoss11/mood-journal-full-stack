@@ -18,10 +18,10 @@ class Login extends React.Component {
       heightFeet: 0,
       heightInches: 0,
       medication: '',
-      passwordMatch: true,
+      passwordMatch: true
     }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleChange(event) {
     const target = event.target;
@@ -42,14 +42,14 @@ class Login extends React.Component {
       weight: this.state.weight,
       heightFeet: this.state.heightFeet,
       heightInches: this.state.heightInches,
-      medication: this.state.medication,
+      medication: this.state.medication
     }
     if(this.state.signup === false) {
       axios.get(`/users/${username}`)
       .then((result) => {
         if(result.data[0]['p'] === obj.password) {
           result.data[0]['p'] = null;
-          ReactDOM.unmountComponentAtNode(document.getElementById('login'))
+          ReactDOM.unmountComponentAtNode(document.getElementById('login'));
           ReactDOM.render(<Homepage user={result.data[0]} />, document.getElementById('homepage'));
         } else {
           this.setState({passwordMatch: false});
@@ -70,11 +70,11 @@ class Login extends React.Component {
     let name, weight, height, medication, email, signup, login, action, confirmPassword, wrongPassword;
     if(this.state.signup === false) {
       signup = <p><a onClick={()=>{this.setState({signup: true})}}><b>Sign Up Here</b></a></p>
-      action = 'Log In'
+      action = 'Log In';
     }
     if(this.state.signup === true) {
       login = <p><a onClick={()=>{this.setState({signup: false})}}><b>Log In Here</b></a></p>
-      action = 'Sign Up'
+      action = 'Sign Up';
       name = 
         <Col>
           <Form.Row>

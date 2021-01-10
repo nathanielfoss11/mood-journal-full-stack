@@ -1,5 +1,5 @@
 const postgres = require('postgres');
-const {Client} = require('pg')
+const {Client} = require('pg');
 const db = new Client({
   host: 'localhost',
   user: 'postgres',
@@ -13,9 +13,9 @@ db.connect();
 const getUser = (name, cb) => {
   db.query(`SELECT * FROM users WHERE username = ($1)`, [name], (err, results) => {
     if(err) {
-      cb(err, null)
+      cb(err, null);
     } else {
-      cb(null, results)
+      cb(null, results);
     }
   })
 }
@@ -32,9 +32,9 @@ const createUser = (obj, cb) => {
 
   db.query(`INSERT INTO users(username, p, name, email, weight, height_feet, height_inches, medication) VALUES($1, $2, $3, $4, $5, $6, $7, $8)`, [u, p, n, e, w, hf, hi, m], (err, results) => {
     if(err) {
-      cb(err, null)
+      cb(err, null);
     } else {
-      cb(null, obj)
+      cb(null, obj);
     }
   })
 }
@@ -42,9 +42,9 @@ const createUser = (obj, cb) => {
 const editUserProfile = (id, obj, cb) => {
   db.query(`UPDATE users SET username = ($1), name = ($2), email = ($3), weight = ($4), height_feet = ($5), height_inches = ($6), medication = ($7) WHERE user_id = ($8)`, [obj.username, obj.name, obj.email, obj.weight, obj.heightFeet, obj.heightInches, obj.medication, id], (err, results) => {
     if(err) {
-      cb(err, null)
+      cb(err, null);
     } else {
-      cb(null, obj)
+      cb(null, obj);
     }
   })
 }
@@ -52,9 +52,9 @@ const editUserProfile = (id, obj, cb) => {
 const getJournalEntries = (id, cb) => {
   db.query('SELECT * FROM journal_entries WHERE user_id = ($1) ORDER BY entry_date DESC', [id], (err, results) => {
     if(err) {
-      cb(err, null)
+      cb(err, null);
     } else {
-      cb(null, results)
+      cb(null, results);
     }
   })
 }
@@ -62,9 +62,9 @@ const getJournalEntries = (id, cb) => {
 const postJournalEntry = (id, obj, cb) => {
   db.query('INSERT INTO journal_entries(user_id, entry_date, mood, hours_of_sleep, activity1, activity2, activity3, symptom1, symptom2, symptom3, took_medication, notes) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)', [id, obj.entry_date, obj.mood, obj.hours_of_sleep, obj.activity1, obj.activity2, obj.activity3, obj.symptom1, obj.symptom2, obj.symptom3, obj.took_medication, obj.notes], (err, results) => {
     if(err) {
-      cb(err, null)
+      cb(err, null);
     } else {
-      cb(null, obj)
+      cb(null, obj);
     }
   })
 }
@@ -72,9 +72,9 @@ const postJournalEntry = (id, obj, cb) => {
 const editJournalEntry = (id, obj, cb) => {
   db.query('UPDATE journal_entries SET entry_date = ($2), mood = ($3), hours_of_sleep = ($4), activity1 = ($5), activity2 = ($6), activity3 = ($7), symptom1 = ($8), symptom2 = ($9), symptom3 = ($10), took_medication = ($11), notes = ($12) WHERE entry_id = ($1)', [obj.entryId, obj.entryDate, obj.mood, obj.hoursOfSleep, obj.activity1, obj.activity2, obj.activity3, obj.symptom1, obj.symptom2, obj.symptom3, obj.tookMedication, obj.notes], (err, results) => {
     if(err) {
-      cb(err, null)
+      cb(err, null);
     } else {
-      cb(null, obj)
+      cb(null, obj);
     }
   })
 }
@@ -82,9 +82,9 @@ const editJournalEntry = (id, obj, cb) => {
 const deleteJournalEntry = (id, cb) => {
   db.query('DELETE FROM journal_entries WHERE entry_id =($1)', [id], (err, results) => {
     if(err) {
-      cb(err, null)
+      cb(err, null);
     } else {
-      cb(null, results)
+      cb(null, results);
     }
   })
 }
@@ -93,9 +93,9 @@ const deleteJournalEntry = (id, cb) => {
 const getQuote = (id, cb) => {
   db.query('SELECT * FROM quotes WHERE quote_id = ($1)', [id], (err, results) => {
     if(err) {
-      cb(err, null)
+      cb(err, null);
     } else {
-      cb(null, results)
+      cb(null, results);
     }
   })
 }

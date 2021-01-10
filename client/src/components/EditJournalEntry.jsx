@@ -25,24 +25,24 @@ class EditJournalEntry extends React.Component {
       entryDate: props.user.entryDate.slice(0, 10),
       moodClicked: false,
     }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleClose = this.handleClose.bind(this)
-    this.handleMoodClick = this.handleMoodClick.bind(this)
-    this.handleDelete = this.handleDelete.bind(this)
-    this.handleModalClick = props.handleModalClick.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.handleMoodClick = this.handleMoodClick.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleModalClick = props.handleModalClick.bind(this);
   }
 
   handleClose(event) {
     event.preventDefault();
-    this.setState({show: false})
+    this.setState({show: false});
   }
 
   handleDelete(event) {
     event.preventDefault();
     axios.delete(`/journal/${this.state.entryId}`)
     .then((results) => ReactDOM.unmountComponentAtNode(document.getElementById('modal')))
-    .catch((err) => console.log(err))
+    .catch((err) => console.log(err));
   }
 
   handleChange(event) {
@@ -54,7 +54,7 @@ class EditJournalEntry extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const userId = this.state.userId
+    const userId = this.state.userId;
     const journalObj = {
       entryId: this.state.entryId,
       userId: this.state.userId,
@@ -69,13 +69,13 @@ class EditJournalEntry extends React.Component {
       symptom3: this.state.symptom3,
       tookMedication: this.state.tookMedication,
       notes: this.state.notes,
-    }
+    };
 
     axios.put(`/users/${userId}/journal`, journalObj)
     .then((results) => {this.handleModalClick(); return results})
     .then((results) => {ReactDOM.unmountComponentAtNode(document.getElementById('modal')); return results})
     .then((results) => this.handleModalClick())
-    .catch((err) => console.log(err))
+    .catch((err) => console.log(err));
   }
 
   handleMoodClick(event) {
@@ -87,7 +87,6 @@ class EditJournalEntry extends React.Component {
 
 
   render() {
-    let activityOptions, symptomOptions
     return(
       <Modal show={this.state.show} onHide={this.handleClose} className="modal-90w">
         <Modal.Header closeButton onClick={this.handleClose}><b>Edit Your Entry</b></Modal.Header>

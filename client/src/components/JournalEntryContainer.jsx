@@ -7,14 +7,14 @@ class JournalEntryContainer extends React.Component {
     this.state = {
       entries: props.entries
     }
-    this.handleModalClick = props.handleModalClick.bind(this)
+    this.handleModalClick = props.handleModalClick.bind(this);
   }
 
   render() {
   return (
     this.state.entries.map((entry) =>
       <JournalRecord handleModalClick={this.handleModalClick = this.handleModalClick.bind(this)} entry={entry} />
-    ))
+    ));
   }  
 }
 

@@ -31,49 +31,41 @@ class JournalRecord extends React.Component {
     this.handleReadMore = this.handleReadMore.bind(this);
     this.handleEditClick = this.handleEditClick.bind(this);
     this.handleEditEntry = this.handleEditEntry.bind(this);
-    this.handleModalClick = props.handleModalClick.bind(this)
+    this.handleModalClick = props.handleModalClick.bind(this);
   }
 
   handleViewClick(event) {
     event.preventDefault();
-    this.setState({viewEntry: true})
-    this.handleViewEntry()
+    this.setState({viewEntry: true});
+    this.handleViewEntry();
   }
 
   handleEditClick(event) {
     event.preventDefault();
-    this.setState({viewEntry: true})
-    this.handleEditEntry()
+    this.setState({viewEntry: true});
+    this.handleEditEntry();
   }
 
   handleViewEntry() {
-    console.log(this.state)
-    ReactDOM.render(<ViewJournalEntry user={this.state} />, document.getElementById('modal'))
+    ReactDOM.render(<ViewJournalEntry user={this.state} />, document.getElementById('modal'));
   }
 
   handleEditEntry() {
     ReactDOM.render(<EditJournalEntry handleModalClick={
-      this.handleModalClick = this.handleModalClick.bind(this)} user={this.state} />, document.getElementById('modal'))
+      this.handleModalClick = this.handleModalClick.bind(this)} user={this.state} />, document.getElementById('modal'));
   }
 
   handleReadMore() {
     if(this.state.readMore === false) {
-      this.setState({readMore: true})
+      this.setState({readMore: true});
     } else {
-      this.setState({readMore: false})
+      this.setState({readMore: false});
     }
   }
 
   render() {
-    let viewMore;
-    if(this.state.viewEntry === true) {
-      <Row>
-        <Button></Button>
-      </Row>
-    }
-
     let date = '';
-    let shortDate = this.state.entryDate.slice(0, 10)
+    let shortDate = this.state.entryDate.slice(0, 10);
     let splitDate = shortDate.split('-');
     if(splitDate[1] === '01') {
       date = `January ${splitDate[2]}, ${splitDate[0]}`
@@ -121,16 +113,16 @@ class JournalRecord extends React.Component {
       notes = this.state.notes.slice(0, 50);
       expand = <a onClick={this.handleReadMore}>...Read More</a>
     } else if(this.state.readMore === true) {
-      notes = this.state.notes
+      notes = this.state.notes;
       expand = <a onClick={this.handleReadMore}><b>&nbsp; Read Less</b></a>
     } else{
-      notes = this.state.notes
+      notes = this.state.notes;
     }
 
     if(this.state.hoursOfSleep === 1) {
-      hours = 'hour'
+      hours = 'hour';
     } else {
-      hours = 'hours'
+      hours = 'hours';
     }
 
     return(

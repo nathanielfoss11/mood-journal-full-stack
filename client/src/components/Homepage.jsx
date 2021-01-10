@@ -72,7 +72,7 @@ class Homepage extends React.Component {
     let moreEntries = entryStart+ 5;
     this.setState({entriesShown: moreEntries});
     ReactDOM.unmountComponentAtNode(document.getElementById('journal'));
-    ReactDOM.render(<JournalEntryContainer entries={this.state.journalEntries.slice(entryStart, moreEntries)} />, document.getElementById('journal'));
+    ReactDOM.render(<JournalEntryContainer handleModalClick={this.handleModalClick = this.handleModalClick.bind(this)} entries={this.state.journalEntries.slice(entryStart, moreEntries)} />, document.getElementById('journal'));
   }
 
   handleMoreEntries(event) {
@@ -107,14 +107,14 @@ class Homepage extends React.Component {
     journalEntries.map((entry) => {if(entry.mood == value){filteredResults.push(entry)}});
     this.setState({pageCount: filteredResults.length / 5});
     ReactDOM.unmountComponentAtNode(document.getElementById('journal'));
-    ReactDOM.render(<JournalEntryContainer entries={filteredResults.slice(0, (this.state.entriesShown))} />, document.getElementById('journal'));
+    ReactDOM.render(<JournalEntryContainer handleModalClick={this.handleModalClick = this.handleModalClick.bind(this)} entries={filteredResults.slice(0, (this.state.entriesShown))} />, document.getElementById('journal'));
   }
 
   handleClearFilterClick() {
-    this.setState({filterValue: null})
-    this.setState({moodFilter: null})
-    this.setState({pageCount: this.state.journalEntries.length / 5})
-    ReactDOM.unmountComponentAtNode(document.getElementById('journal'))
+    this.setState({filterValue: null});
+    this.setState({moodFilter: null});
+    this.setState({pageCount: this.state.journalEntries.length / 5});
+    ReactDOM.unmountComponentAtNode(document.getElementById('journal'));
     ReactDOM.render(<JournalEntryContainer entries={this.state.journalEntries.slice(0, 5)} />, document.getElementById('journal'));
   }
 

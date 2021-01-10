@@ -1,11 +1,10 @@
 import React from 'react';
-import { Container, Form, Button, Col, Row, Modal} from 'react-bootstrap';
 import axios from 'axios';
+import { Col, Row, Modal } from 'react-bootstrap';
 
 class ViewJournalEntry extends React.Component {
   constructor(props) {
-    super(props)
-    console.log(props)
+    super(props);
     this.state = {
       show: true,
       entryId: props.user.entryId,
@@ -24,17 +23,17 @@ class ViewJournalEntry extends React.Component {
       notes:  props.user.notes,
       entryDate: props.user.entryDate.slice(0, 10)
     }
-    this.handleClose = this.handleClose.bind(this)
+    this.handleClose = this.handleClose.bind(this);
   }
 
   handleClose(event) {
     event.preventDefault();
-    this.setState({show: false})
+    this.setState({show: false});
   }
 
   render() {
     let date = '';
-    let shortDate = this.state.entryDate.slice(0, 10)
+    let shortDate = this.state.entryDate.slice(0, 10);
     let splitDate = shortDate.split('-');
     if(splitDate[1] === '01') {
       date = `January ${splitDate[2]}, ${splitDate[0]}`
@@ -61,27 +60,27 @@ class ViewJournalEntry extends React.Component {
     } else if(splitDate[1] === '12') {
       date = `December ${splitDate[2]}, ${splitDate[0]}`
     }
-    let activity1, activity2, symptom1, symptom2, symptomOptions
+    let activity1, activity2, symptom1, symptom2, symptomOptions;
 
     if(this.state.activity2 !== undefined) {
-      activity1 = this.state.activity1 + ','
+      activity1 = this.state.activity1 + ',';
     } else {
-      activity1 = this.state.activity1
+      activity1 = this.state.activity1;
     }
     if(this.state.activity3 !== undefined) {
-      activity2 = this.state.activity2 + ','
+      activity2 = this.state.activity2 + ',';
     } else {
-      activity2 = this.state.activity2
+      activity2 = this.state.activity2;
     }
     if(this.state.symptom2 !== undefined) {
-      symptom1 = this.state.symptom1 + ','
+      symptom1 = this.state.symptom1 + ',';
     } else {
-      symptom1 = this.state.symptom1
+      symptom1 = this.state.symptom1;
     }
     if(this.state.symptom3 !== undefined) {
-      symptom2 = this.state.symptom2 + ','
+      symptom2 = this.state.symptom2 + ',';
     } else {
-      symptom2 = this.state.symptom2
+      symptom2 = this.state.symptom2;
     }
     let mood;
     if(this.state.mood === '1') {
