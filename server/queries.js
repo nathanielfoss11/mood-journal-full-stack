@@ -5,7 +5,8 @@ const db = new Client({
   user: 'upxxmnesagcmso',
   database: 'd9ongd99tkdl0c',
   port: 5432,
-  password: '4d0a064f5740724c7bc3fa0d202ebf58b2af54acedfd70bfbde7b65959ca5260'
+  password: '4d0a064f5740724c7bc3fa0d202ebf58b2af54acedfd70bfbde7b65959ca5260',
+  url: 'postgres://upxxmnesagcmso:4d0a064f5740724c7bc3fa0d202ebf58b2af54acedfd70bfbde7b65959ca5260@ec2-18-207-95-219.compute-1.amazonaws.com:5432/d9ongd99tkdl0c'
 });
 
 db.connect();
