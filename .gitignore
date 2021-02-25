@@ -10,7 +10,7 @@
 *.userosscache
 *.sln.docstates
 node_modules
-
+./server/p.js
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
