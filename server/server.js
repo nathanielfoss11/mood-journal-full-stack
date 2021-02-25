@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const PORT = 3002;
+const port = process.env.PORT || 3002;
 const queries = require('./queries.js');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
@@ -118,6 +118,6 @@ app.put('/users/:id', (req, res) => {
 })
 
 
-app.listen(PORT, () => {
-    console.log('Serving up now at '+ JSON.stringify(PORT));
+app.listen(port, () => {
+    console.log('Serving up now at '+ JSON.stringify(port));
 });
