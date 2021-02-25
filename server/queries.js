@@ -11,7 +11,7 @@ const db = new Client({
 db.connect();
 
 const getUser = (name, cb) => {
-  db.query(`SELECT * FROM users WHERE username = ($1)`, [name], (err, results) => {
+  db.query(`SELECT * FROM user WHERE username = ($1)`, [name], (err, results) => {
     if(err) {
       cb(err, null);
     } else {
@@ -30,7 +30,7 @@ const createUser = (obj, cb) => {
   let m = obj.medication;
   let e = obj.email;
 
-  db.query(`INSERT INTO users(username, p, name, email, weight, height_feet, height_inches, medication) VALUES($1, $2, $3, $4, $5, $6, $7, $8)`, [u, p, n, e, w, hf, hi, m], (err, results) => {
+  db.query(`INSERT INTO user(username, p, name, email, weight, height_feet, height_inches, medication) VALUES($1, $2, $3, $4, $5, $6, $7, $8)`, [u, p, n, e, w, hf, hi, m], (err, results) => {
     if(err) {
       cb(err, null);
     } else {
@@ -40,7 +40,7 @@ const createUser = (obj, cb) => {
 }
 
 const editUserProfile = (id, obj, cb) => {
-  db.query(`UPDATE users SET username = ($1), name = ($2), email = ($3), weight = ($4), height_feet = ($5), height_inches = ($6), medication = ($7) WHERE user_id = ($8)`, [obj.username, obj.name, obj.email, obj.weight, obj.heightFeet, obj.heightInches, obj.medication, id], (err, results) => {
+  db.query(`UPDATE user SET username = ($1), name = ($2), email = ($3), weight = ($4), height_feet = ($5), height_inches = ($6), medication = ($7) WHERE user_id = ($8)`, [obj.username, obj.name, obj.email, obj.weight, obj.heightFeet, obj.heightInches, obj.medication, id], (err, results) => {
     if(err) {
       cb(err, null);
     } else {
