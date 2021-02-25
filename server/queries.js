@@ -4,7 +4,6 @@ const p = require('./p);
 const db = new Client({
   host: 'ec2-18-207-95-219.compute-1.amazonaws.com',
   user: 'upxxmnesagcmso',
-  password: 'flower11',
   database: 'd9ongd99tkdl0c',
   port: 5432,
   password: p
